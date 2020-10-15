@@ -8,8 +8,10 @@ pipeline {
 	stages {
 	
 		stage('compile') {
-			echo "---- clean compile ----"
-			sh "mvn clean compile"
+			steps {
+			    echo "---- clean compile ----"
+           		sh "mvn clean compile"
+            }
 		}
 		
 		
