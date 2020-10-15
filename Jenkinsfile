@@ -16,10 +16,18 @@ pipeline {
 		
 		stage('Unit tests') {
             steps {
-                echo "-=- execute unit tests -=-"
+                echo "---- execute unit tests ----"
                 sh "mvn test org.jacoco:jacoco-maven-plugin:report"
                 junit 'target/surefire-reports/*.xml'
                 jacoco execPattern: 'target/jacoco.exec'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo "---- packaging project ----"
+                sh "mvn package -DskipTests"
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
 	}
