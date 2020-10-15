@@ -14,6 +14,13 @@ pipeline {
             }
 		}
 		
-		
+		stage('Unit tests') {
+            steps {
+                echo "-=- execute unit tests -=-"
+                sh "mvn test org.jacoco:jacoco-maven-plugin:report"
+                junit 'target/surefire-reports/*.xml'
+                jacoco execPattern: 'target/jacoco.exec'
+            }
+        }
 	}
 }
